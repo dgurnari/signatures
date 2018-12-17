@@ -1,5 +1,5 @@
 # signatures
-repository for the CBSD 18/19 signature identification project 
+repository for the CBSD 18/19 signature verification project 
 
 the datasets can be found at https://www.math.unipd.it/~nnavarin/Projects/
 
