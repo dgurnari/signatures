@@ -5,7 +5,6 @@ the datasets can be found at https://www.math.unipd.it/~nnavarin/Projects/
 
 all the code shoud be compliant with the original folder strucure of the datasets
 
-executions info:
 
 <table>
 	<caption>Without preprocessing,HOG = orientations=11, pixels_per_cell=(4,4), cells_per_block=(2,2), image = (70,100)</caption>
@@ -85,7 +84,7 @@ executions info:
 			0:35:21.516045
 		</td>
         </tr>
- <\table>
+ </table>
   
 <table>
 	<caption>Without preprocessing,HOG = orientations=8,pixels_per_cell=(4, 4),cells_per_block=(2, 2), image = (70,100)</caption>
