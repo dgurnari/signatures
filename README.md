@@ -164,7 +164,7 @@ all the code shoud be compliant with the original folder strucure of the dataset
 			0:25:33.255028
 		</td>
         </tr>
- <\table>
+ </table>
 	 
 <table>
 	<caption>With preprocessing (Binarization),HOG = orientations=8,pixels_per_cell=(4, 4),cells_per_block=(2, 2), image = (100,150)</caption>
@@ -244,7 +244,7 @@ all the code shoud be compliant with the original folder strucure of the dataset
 			0:51:21.900927
 		</td>
         </tr>
- <\table>
+ </table>
 	 	 
 	 
   
