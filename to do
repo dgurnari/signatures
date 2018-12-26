@@ -6,3 +6,5 @@ try the code on the frasi spontanee (also modify it)
 
 preprocessing: - binarization;
                - noise removal;
+
+create a balanced splitting of the database
