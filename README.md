@@ -167,7 +167,7 @@ all the code shoud be compliant with the original folder strucure of the dataset
  </table>
 	 
 <table>
-	<caption>With preprocessing (Binarization),HOG = orientations=8,pixels_per_cell=(4, 4),cells_per_block=(2, 2), image = (100,150)</caption>
+	<caption>HOG = orientations=8,pixels_per_cell=(4, 4),cells_per_block=(2, 2), image = (100,150)</caption>
         <tr>
 		<td>
 			class
