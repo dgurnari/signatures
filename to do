@@ -1,6 +1,1 @@
-- full resolution run (390x270)
-- all possible couples run
-- pickle
-- more than two images
-- create a balanced splitting of the database: https://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html 
-- try different methods for feature extraction: http://scikit-image.org/docs/dev/api/skimage.feature.html
+modify the match_2() function to create GGG and GGF touples where the first two are fixed
