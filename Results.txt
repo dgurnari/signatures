@@ -1,0 +1,85 @@
+LOADING FEATURES: 
+- For each subject: 8 GGG and 10 GGF.
+- Manual split of the dataset setting the 70% of subject in thee Training Set and the remaining part in the Test Set.
+- Balance of the dataset directly in the methods thanks to the attribute 'class_weight': 'balanced'.
+
+1. DAISY + LR
+Execution time of the method: 10.6min
+Best hyperparameters: {'C': 2, 'class_weight': 'balanced', 'penalty': 'l2'}
+Best accuracy score: 0.591919 
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.66      0.61      0.63       480
+Genuine Genuine Genuine       0.55      0.61      0.58       384
+
+            avg / total       0.61      0.61      0.61       864
+
+
+
+
+2. DAISY + RFC
+Execution time of the method: 68.8min
+Best hyperparameters: {'bootstrap': False, 'class_weight': 'balanced', 'max_depth': 50, 'min_samples_split': 10, 'n_estimators': 200}
+Best accuracy score: 0.856061
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.70      0.70      0.70       480
+Genuine Genuine Genuine       0.62      0.62      0.62       384
+
+            avg / total       0.67      0.67      0.67       864
+
+
+
+
+3. DAISY + SVM
+Execution time of the method: 93.5min
+Best hyperparameters: {'C': 1000, 'class_weight': 'balanced', 'gamma': 0.001, 'kernel': 'rbf'}
+Best accuracy score: 0.593939
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.67      0.57      0.62       480
+Genuine Genuine Genuine       0.55      0.65      0.59       384
+
+            avg / total       0.62      0.61      0.61       864
+
+
+
+
+4. HOG + LR
+Execution time of the method: 11.0min
+Best hyperparameters: {'C': 0.5, 'penalty': 'l2'}
+Best accuracy score: 0.646465
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.63      0.64      0.63       480
+Genuine Genuine Genuine       0.54      0.54      0.54       384
+
+            avg / total       0.59      0.59      0.59       864
+
+
+
+
+5. HOG + RFC
+Execution time of the method: 65.5min
+Best hyperparameters: {'bootstrap': False, 'class_weight': 'balanced', 'max_depth': 50, 'min_samples_split': 2, 'n_estimators': 200}
+Best accuracy score: 0.758586
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.62      0.86      0.72       480
+Genuine Genuine Genuine       0.66      0.33      0.44       384
+
+            avg / total       0.63      0.63      0.60       864
+
+
+
+
+6. HOG + SVM
+Execution time of the method:
+Best hyperparameters:
+Best accuracy score:
+Report:
