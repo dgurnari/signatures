@@ -83,3 +83,43 @@ Execution time of the method:
 Best hyperparameters:
 Best accuracy score:
 Report:
+
+=================================================================================
+HUDSON's Results
+
+1. DAISY + LR
+Execution time of the method: 12.32min
+Best hyperparameters: {'C': 2, 'class_weight': 'balanced', 'penalty': 'l2'}
+Best accuracy score: 0.609091 
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.64      0.69      0.66       480
+Genuine Genuine Genuine       0.57      0.51      0.53       384
+
+            avg / total       0.61      0.61      0.61       864
+
+
+2. DAISY + RFC
+Best hyperparameters: {'bootstrap': False, 'class_weight': 'balanced', 'max_depth': 60, 'min_samples_split': 5, 'n_estimators': 200}
+Best accuracy score: 0.866667
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.67      0.88      0.76       480
+Genuine Genuine Genuine       0.76      0.45      0.56       384
+
+            avg / total       0.71      0.69      0.67       864
+
+
+3. DAISY + SVM
+Execution time of the method: 93.5min
+Best hyperparameters: {'C': 1000, 'class_weight': 'balanced', 'gamma': 0.001, 'kernel': 'rbf'}
+Best accuracy score: 0.593939
+Report:
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.67      0.57      0.62       480
+Genuine Genuine Genuine       0.55      0.65      0.59       384
+
+            avg / total       0.62      0.61      0.61       864
