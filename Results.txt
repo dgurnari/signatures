@@ -127,6 +127,26 @@ Genuine Genuine       0.56      0.58      0.57       432
 
     avg / total       0.59      0.59      0.59       912
 
+
+LR HOG [VITTORIA] even
+
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=10, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1,
+          penalty='l2', random_state=None, solver='liblinear', tol=0.0001,
+          verbose=0, warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'C': [0.01, 0.05, 0.1, 0.5, 1, 2], 'penalty': ['l1', 'l2'], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                 precision    recall  f1-score   support
+
+Genuine Forgery       0.58      0.58      0.58       432
+Genuine Genuine       0.58      0.59      0.58       432
+
+    avg / total       0.58      0.58      0.58       864
 ________________________________________________________________
 
 ================================================================
