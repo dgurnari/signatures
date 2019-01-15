@@ -11,9 +11,29 @@ PASTE YOUR OUTPUT BELOW
 
 RF DAISY [DARIO]
 
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'n_estimators': [50, 100, 200], 'max_depth': [50, 60, 70], 'min_samples_split': [2, 5, 10], 'bootstrap': [True, False], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                 precision    recall  f1-score   support
+
+Genuine Forgery       0.61      0.64      0.63       480
+Genuine Genuine       0.58      0.55      0.56       432
+
+    avg / total       0.60      0.60      0.60       912
 
 ________________________________________________________________
-RFN HOG [LAURA]
+RF HOG [LAURA]
 GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
        error_score=&#39;raise&#39;,
        estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
@@ -33,13 +53,9 @@ Genuine Forgery       0.59      0.84      0.69       480
 Genuine Genuine       0.67      0.35      0.46       432
 
     avg / total       0.63      0.61      0.58       912
-    
-End time:  2019-01-15 10:44:05.243973
-Uptime : 0:41:34.284853
-
 
 ________________________________________________________________
-SVM DAISY 2 [PAOLO]
+SVM DAISY [PAOLO]
 
 Classification report for - 
 GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
@@ -58,29 +74,6 @@ Genuine Forgery       0.60      0.59      0.59       480
 Genuine Genuine       0.55      0.57      0.56       432
 
     avg / total       0.58      0.58      0.58       912
-
-________________________________________________________________
-SVM DAISY 3 [PAOLO]
-
-Classification report for - 
-GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
-       error_score='raise',
-       estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-  decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
-  max_iter=-1, probability=False, random_state=None, shrinking=True,
-  tol=0.001, verbose=False),
-       fit_params=None, iid=True, n_jobs=1,
-       param_grid={'C': [1000], 'gamma': [0.001], 'kernel': ['rbf'], 'class_weight': ['balanced']},
-       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
-       scoring='accuracy', verbose=3):
-                         precision    recall  f1-score   support
-
-Genuine Genuine Forgery       0.63      0.56      0.60       480
-Genuine Genuine Genuine       0.52      0.59      0.55       384
-
-            avg / total       0.58      0.57      0.58       864
-
-
 
 ________________________________________________________________
 SVM HOG [DAVIDE]
@@ -173,5 +166,81 @@ Genuine Genuine       0.58      0.59      0.58       432
 ________________________________________________________________
 
 ================================================================
+
+3 SIGNATURES
+
+RF DAISY [DARIO]
+
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'n_estimators': [50, 100, 200], 'max_depth': [50, 60, 70], 'min_samples_split': [2, 5, 10], 'bootstrap': [True, False], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.63      0.77      0.69       480
+Genuine Genuine Genuine       0.60      0.43      0.50       384
+
+            avg / total       0.61      0.62      0.61       864
+
+________________________________________________________________
+RF HOG [LAURA]
+
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'n_estimators': [50, 100, 200], 'max_depth': [50, 60, 70], 'min_samples_split': [2, 5, 10], 'bootstrap': [True, False], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.60      0.87      0.71       480
+Genuine Genuine Genuine       0.62      0.27      0.38       384
+
+            avg / total       0.61      0.60      0.56       864
+
+________________________________________________________________
+SVM DAISY [PAOLO]
+________________________________________________________________
+SVM HOG [DAVIDE]
+___________________________________________________________
+LR DAISY [VITTORIA] 
+
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=10, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1,
+          penalty='l2', random_state=None, solver='liblinear', tol=0.0001,
+          verbose=0, warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'C': [0.01, 0.05, 0.1, 0.5, 1, 2], 'penalty': ['l1', 'l2'], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.62      0.54      0.58       480
+Genuine Genuine Genuine       0.50      0.58      0.54       384
+
+            avg / total       0.57      0.56      0.56       864
+________________________________________________________________
+LR HOG [VITTORIA]
 
 
