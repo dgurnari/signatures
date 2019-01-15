@@ -218,6 +218,24 @@ Genuine Genuine Genuine       0.62      0.27      0.38       384
 
 ________________________________________________________________
 SVM DAISY [PAOLO]
+
+Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
+       error_score='raise',
+       estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  tol=0.001, verbose=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={'C': [1000], 'gamma': [0.001], 'kernel': ['rbf'], 'class_weight': ['balanced']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring='accuracy', verbose=3):
+                         precision    recall  f1-score   support
+
+Genuine Genuine Forgery       0.63      0.56      0.60       480
+Genuine Genuine Genuine       0.52      0.59      0.55       384
+
+             avg / total       0.58      0.57      0.58       864
 ________________________________________________________________
 SVM HOG [DAVIDE]
 ___________________________________________________________
