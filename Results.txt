@@ -1,4 +1,9 @@
 DEFINITIVE RESULTS
+
+Ubuntu 16.04 LTS
+Memory 7,6 GiB
+CPU    Intel® Core™ i5-7500 CPU @ 3.40GHz × 4
+
 PASTE YOUR OUTPUT BELOW
 
 ================================================================
