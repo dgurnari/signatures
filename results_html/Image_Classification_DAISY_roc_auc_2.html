@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Image_Classification_HOG</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Image_Classification_DAISY_roc_auc</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11789,7 +11789,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
@@ -11818,7 +11818,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Start point</span>
@@ -11840,7 +11840,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Start time:  2019-01-15 11:16:42.970575
+<pre>Start time:  2019-01-16 16:39:16.035625
 </pre>
 </div>
 </div>
@@ -11851,10 +11851,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pickle_in</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Signature_Dataset_HOG_110_3.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pickle_in</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Signature_Dataset_DAISY_110_2_int.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
 <span class="n">image_dataset</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pickle_in</span><span class="p">)</span>
 </pre></div>
 
@@ -11873,7 +11873,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">image_dataset</span><span class="o">.</span><span class="n">X_train</span>
@@ -11881,7 +11881,7 @@ div#notebook {
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">image_dataset</span><span class="o">.</span><span class="n">y_train</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">image_dataset</span><span class="o">.</span><span class="n">y_test</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Dataset Splitted----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Dataset Loaded From Pickle----&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11898,7 +11898,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>----Dataset Splitted----
+<pre>----Dataset Loaded From Pickle----
 </pre>
 </div>
 </div>
@@ -11917,14 +11917,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Dictionary of models and hyperparameters</span>
 
 <span class="n">models_and_hyperparameters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;LR&#39;</span><span class="p">:(</span><span class="n">LogisticRegression</span><span class="p">(),{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
                                                         <span class="s1">&#39;penalty&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;l2&#39;</span><span class="p">],</span> 
-                                                        <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">]}),</span>
+                                                        <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">]</span> <span class="p">}),</span>
                            <span class="s1">&#39;SVM&#39;</span><span class="p">:(</span><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(),{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
                                              <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">],</span>
                                              <span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;rbf&#39;</span><span class="p">],</span>
@@ -11944,31 +11944,38 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#LOGISTIC REGRESSION</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">print(&quot;----Training----&quot;)</span>
 
-<span class="sd">k_fold = StratifiedKFold(n_splits=10, shuffle=True, random_state=31)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Training----&quot;</span><span class="p">)</span>
 
-<span class="sd">model = models_and_hyperparameters[&#39;LR&#39;][0]</span>
-<span class="sd">hyperparameters = models_and_hyperparameters[&#39;LR&#39;][1]</span>
+<span class="n">k_fold</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">31</span><span class="p">)</span>
 
-<span class="sd">gs = GridSearchCV(model, </span>
-<span class="sd">                   param_grid = hyperparameters,</span>
-<span class="sd">                   cv=k_fold, </span>
-<span class="sd">                   scoring=&#39;accuracy&#39;,</span>
-<span class="sd">                   verbose=3,</span>
-<span class="sd">                   return_train_score=True)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models_and_hyperparameters</span><span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">hyperparameters</span> <span class="o">=</span> <span class="n">models_and_hyperparameters</span><span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="sd">gs.fit(X_train, y_train)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
+                   <span class="n">param_grid</span> <span class="o">=</span> <span class="n">hyperparameters</span><span class="p">,</span>
+                   <span class="n">cv</span><span class="o">=</span><span class="n">k_fold</span><span class="p">,</span> 
+                   <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span>
+                   <span class="n">verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                   <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="sd">print(&quot;----Training Ended----&quot;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Training Ended----&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11981,13 +11988,681 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[46]:</div>
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Training----
+Fitting 10 folds for each of 12 candidates, totalling 120 fits
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   1.0s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    1.1s remaining:    0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   1.0s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    2.1s remaining:    0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   1.0s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   0.9s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   0.9s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   0.9s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   0.9s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   0.9s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   1.0s
+[CV] C=0.01, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l1, score=0.5, total=   1.0s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.6022038567493113, total=   1.3s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.5636363636363637, total=   1.4s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.6476584022038567, total=   1.5s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.6528007346189165, total=   1.3s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.5451790633608815, total=   1.6s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.5696969696969697, total=   1.3s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.5425160697887971, total=   1.3s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.6480257116620753, total=   1.4s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.5743801652892563, total=   1.4s
+[CV] C=0.01, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.01, class_weight=balanced, penalty=l2, score=0.6107438016528927, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.3s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l1 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.6205693296602388, total=   2.0s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.5892561983471074, total=   2.3s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.660514233241506, total=   2.2s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.676216712580349, total=   2.3s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.5470156106519743, total=   2.0s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.5842056932966023, total=   1.9s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.580532598714417, total=   1.9s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.6577594123048669, total=   2.0s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.6025711662075298, total=   2.0s
+[CV] C=0.05, class_weight=balanced, penalty=l2 .......................
+[CV]  C=0.05, class_weight=balanced, penalty=l2, score=0.621763085399449, total=   2.1s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l1, score=0.5, total=   1.2s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6348943985307621, total=   2.3s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6059687786960515, total=   2.3s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6658402203856749, total=   2.2s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6889807162534436, total=   2.2s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.5547291092745639, total=   2.2s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.594674012855831, total=   2.2s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6000918273645546, total=   2.3s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6641873278236915, total=   2.3s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6189164370982553, total=   1.8s
+[CV] C=0.1, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.1, class_weight=balanced, penalty=l2, score=0.6295684113865933, total=   2.2s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.4963269054178145, total=   1.9s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5254361799816346, total=   1.9s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5368227731864096, total=   2.1s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5940312213039486, total=   1.7s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5012855831037649, total=   1.8s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5613406795224977, total=   2.1s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5663911845730027, total=   2.0s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.547107438016529, total=   2.0s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5194674012855831, total=   1.9s
+[CV] C=0.5, class_weight=balanced, penalty=l1 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l1, score=0.5686868686868687, total=   2.1s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6667584940312213, total=   3.7s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6476584022038568, total=   3.7s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6865013774104682, total=   3.0s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.7123966942148761, total=   3.1s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6046831955922866, total=   3.7s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6332415059687787, total=   3.1s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.642791551882461, total=   3.7s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6945821854912764, total=   3.0s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6422405876951331, total=   3.0s
+[CV] C=0.5, class_weight=balanced, penalty=l2 ........................
+[CV]  C=0.5, class_weight=balanced, penalty=l2, score=0.6564738292011021, total=   3.0s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5552800734618917, total=   2.2s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.555463728191001, total=   2.2s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5706152433425161, total=   2.6s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.6090909090909091, total=   2.7s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5198347107438016, total=   3.4s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5411386593204774, total=   2.1s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.4981634527089073, total=   2.3s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5674012855831038, total=   2.4s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.556198347107438, total=   2.3s
+[CV] C=1, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l1, score=0.5798898071625345, total=   2.4s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6807162534435262, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6669421487603305, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6950413223140496, total=   4.3s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.7223140495867769, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6325068870523416, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6492194674012857, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.656749311294766, total=   3.6s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.7118457300275483, total=   3.5s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6493112947658402, total=   3.4s
+[CV] C=1, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=1, class_weight=balanced, penalty=l2, score=0.6762167125803491, total=   3.6s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.6419651056014692, total=   2.8s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.6514233241505969, total=   2.2s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.7025711662075298, total=   2.2s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.7429752066115702, total=   2.4s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.5837465564738292, total=   2.1s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.5861340679522499, total=   2.7s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.6039485766758494, total=   2.9s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.660238751147842, total=   2.7s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.5987144168962351, total=   2.7s
+[CV] C=2, class_weight=balanced, penalty=l1 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l1, score=0.640771349862259, total=   2.1s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6934802571166209, total=   5.4s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6874196510560148, total=   4.7s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.707346189164371, total=   4.7s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.7392102846648302, total=   4.5s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6559228650137741, total=   5.4s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6660238751147842, total=   5.4s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6764003673094583, total=   5.3s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.7256198347107439, total=   4.4s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6581267217630854, total=   4.4s
+[CV] C=2, class_weight=balanced, penalty=l2 ..........................
+[CV]  C=2, class_weight=balanced, penalty=l2, score=0.6970615243342516, total=   4.5s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done 120 out of 120 | elapsed:  4.7min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Training Ended----
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[7]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;\nprint(&#34;----Training----&#34;)\n\nk_fold = StratifiedKFold(n_splits=10, shuffle=True, random_state=31)\n\nmodel = models_and_hyperparameters[\&#39;LR\&#39;][0]\nhyperparameters = models_and_hyperparameters[\&#39;LR\&#39;][1]\n\ngs = GridSearchCV(model, \n                   param_grid = hyperparameters,\n                   cv=k_fold, \n                   scoring=\&#39;accuracy\&#39;,\n                   verbose=3,\n                   return_train_score=True)\n\ngs.fit(X_train, y_train)\n\nprint(&#34;----Training Ended----&#34;)\n&#39;</pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>mean_score_time</th>
+      <th>mean_test_score</th>
+      <th>mean_train_score</th>
+      <th>param_C</th>
+      <th>param_class_weight</th>
+      <th>param_penalty</th>
+      <th>params</th>
+      <th>rank_test_score</th>
+      <th>split0_test_score</th>
+      <th>...</th>
+      <th>split7_test_score</th>
+      <th>split7_train_score</th>
+      <th>split8_test_score</th>
+      <th>split8_train_score</th>
+      <th>split9_test_score</th>
+      <th>split9_train_score</th>
+      <th>std_fit_time</th>
+      <th>std_score_time</th>
+      <th>std_test_score</th>
+      <th>std_train_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.946181</td>
+      <td>0.009711</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.01</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 0.01, 'class_weight': 'balanced', 'penal...</td>
+      <td>10</td>
+      <td>0.500000</td>
+      <td>...</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.040070</td>
+      <td>0.017649</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.372397</td>
+      <td>0.003800</td>
+      <td>0.595684</td>
+      <td>0.643196</td>
+      <td>0.01</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 0.01, 'class_weight': 'balanced', 'penal...</td>
+      <td>7</td>
+      <td>0.602204</td>
+      <td>...</td>
+      <td>0.648026</td>
+      <td>0.638755</td>
+      <td>0.574380</td>
+      <td>0.640721</td>
+      <td>0.610744</td>
+      <td>0.647974</td>
+      <td>0.111126</td>
+      <td>0.000488</td>
+      <td>0.040628</td>
+      <td>0.005479</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.207217</td>
+      <td>0.003725</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.05</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 0.05, 'class_weight': 'balanced', 'penal...</td>
+      <td>10</td>
+      <td>0.500000</td>
+      <td>...</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.025878</td>
+      <td>0.000041</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.078948</td>
+      <td>0.004346</td>
+      <td>0.614040</td>
+      <td>0.661744</td>
+      <td>0.05</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 0.05, 'class_weight': 'balanced', 'penal...</td>
+      <td>6</td>
+      <td>0.620569</td>
+      <td>...</td>
+      <td>0.657759</td>
+      <td>0.658226</td>
+      <td>0.602571</td>
+      <td>0.660876</td>
+      <td>0.621763</td>
+      <td>0.663724</td>
+      <td>0.140061</td>
+      <td>0.001627</td>
+      <td>0.039103</td>
+      <td>0.003574</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.180818</td>
+      <td>0.003749</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.1</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 0.1, 'class_weight': 'balanced', 'penalt...</td>
+      <td>10</td>
+      <td>0.500000</td>
+      <td>...</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.006263</td>
+      <td>0.000028</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.190995</td>
+      <td>0.003585</td>
+      <td>0.625785</td>
+      <td>0.674796</td>
+      <td>0.1</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 0.1, 'class_weight': 'balanced', 'penalt...</td>
+      <td>5</td>
+      <td>0.634894</td>
+      <td>...</td>
+      <td>0.664187</td>
+      <td>0.671623</td>
+      <td>0.618916</td>
+      <td>0.675233</td>
+      <td>0.629568</td>
+      <td>0.675327</td>
+      <td>0.127370</td>
+      <td>0.000023</td>
+      <td>0.037798</td>
+      <td>0.002882</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.963071</td>
+      <td>0.003753</td>
+      <td>0.541690</td>
+      <td>0.543274</td>
+      <td>0.5</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 0.5, 'class_weight': 'balanced', 'penalt...</td>
+      <td>9</td>
+      <td>0.496327</td>
+      <td>...</td>
+      <td>0.547107</td>
+      <td>0.542225</td>
+      <td>0.519467</td>
+      <td>0.545555</td>
+      <td>0.568687</td>
+      <td>0.540414</td>
+      <td>0.132424</td>
+      <td>0.000012</td>
+      <td>0.029943</td>
+      <td>0.003266</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3.300158</td>
+      <td>0.003576</td>
+      <td>0.658733</td>
+      <td>0.718044</td>
+      <td>0.5</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 0.5, 'class_weight': 'balanced', 'penalt...</td>
+      <td>3</td>
+      <td>0.666758</td>
+      <td>...</td>
+      <td>0.694582</td>
+      <td>0.715023</td>
+      <td>0.642241</td>
+      <td>0.721813</td>
+      <td>0.656474</td>
+      <td>0.716261</td>
+      <td>0.337687</td>
+      <td>0.000012</td>
+      <td>0.030374</td>
+      <td>0.002559</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2.444153</td>
+      <td>0.003769</td>
+      <td>0.555308</td>
+      <td>0.582827</td>
+      <td>1</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 1, 'class_weight': 'balanced', 'penalty'...</td>
+      <td>8</td>
+      <td>0.555280</td>
+      <td>...</td>
+      <td>0.567401</td>
+      <td>0.567555</td>
+      <td>0.556198</td>
+      <td>0.596791</td>
+      <td>0.579890</td>
+      <td>0.586202</td>
+      <td>0.358026</td>
+      <td>0.000028</td>
+      <td>0.029331</td>
+      <td>0.018901</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3.655536</td>
+      <td>0.003576</td>
+      <td>0.674086</td>
+      <td>0.741410</td>
+      <td>1</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 1, 'class_weight': 'balanced', 'penalty'...</td>
+      <td>2</td>
+      <td>0.680716</td>
+      <td>...</td>
+      <td>0.711846</td>
+      <td>0.738100</td>
+      <td>0.649311</td>
+      <td>0.745669</td>
+      <td>0.676217</td>
+      <td>0.739423</td>
+      <td>0.241704</td>
+      <td>0.000014</td>
+      <td>0.027481</td>
+      <td>0.002591</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2.476216</td>
+      <td>0.003855</td>
+      <td>0.641249</td>
+      <td>0.671564</td>
+      <td>2</td>
+      <td>balanced</td>
+      <td>l1</td>
+      <td>{'C': 2, 'class_weight': 'balanced', 'penalty'...</td>
+      <td>4</td>
+      <td>0.641965</td>
+      <td>...</td>
+      <td>0.660239</td>
+      <td>0.670096</td>
+      <td>0.598714</td>
+      <td>0.671867</td>
+      <td>0.640771</td>
+      <td>0.674991</td>
+      <td>0.288524</td>
+      <td>0.000179</td>
+      <td>0.049110</td>
+      <td>0.005312</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>4.871757</td>
+      <td>0.003581</td>
+      <td>0.690661</td>
+      <td>0.767342</td>
+      <td>2</td>
+      <td>balanced</td>
+      <td>l2</td>
+      <td>{'C': 2, 'class_weight': 'balanced', 'penalty'...</td>
+      <td>1</td>
+      <td>0.693480</td>
+      <td>...</td>
+      <td>0.725620</td>
+      <td>0.764263</td>
+      <td>0.658127</td>
+      <td>0.771013</td>
+      <td>0.697062</td>
+      <td>0.765301</td>
+      <td>0.429633</td>
+      <td>0.000031</td>
+      <td>0.026443</td>
+      <td>0.002515</td>
+    </tr>
+  </tbody>
+</table>
+<p>12 rows × 33 columns</p>
+</div>
 </div>
 
 </div>
@@ -11998,29 +12673,140 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creation of the pickle which is goig to store the model.</span>
+
+<span class="n">pickle_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;LR_roc_auc_DAISY_2.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="c1">#Modify with the name of the dataset you&#39;re saving</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">,</span> <span class="n">pickle_out</span><span class="p">)</span>
+<span class="n">pickle_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Pickle created----&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Pickle created----
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Predict">Predict<a class="anchor-link" href="#Predict">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparameters: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_params_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best roc_auc score: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Best hyperparameters: {&#39;C&#39;: 2, &#39;class_weight&#39;: &#39;balanced&#39;, &#39;penalty&#39;: &#39;l2&#39;}
+Best roc_auc score: 0.690661
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h3>
+</div>
+</div>
+</div>print("Classification report for - \n{}:\n{}\n".format(gs, metrics.classification_report(y_test, y_pred)))
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>\
+\
+\
+\
+\</p>
+<h1 id="SVM">SVM<a class="anchor-link" href="#SVM">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># SVM</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">print(&quot;----Training----&quot;)</span>
 
-<span class="sd">k_fold = StratifiedKFold(n_splits=4, shuffle=True, random_state=31)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Training----&quot;</span><span class="p">)</span>
 
-<span class="sd">model = models_and_hyperparameters[&#39;SVM&#39;][0]</span>
-<span class="sd">hyperparameters = models_and_hyperparameters[&#39;SVM&#39;][1]</span>
+<span class="n">k_fold</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">31</span><span class="p">)</span>
 
-<span class="sd">gs = GridSearchCV(model, </span>
-<span class="sd">                   param_grid = hyperparameters,</span>
-<span class="sd">                   cv=k_fold, </span>
-<span class="sd">                   scoring=&#39;accuracy&#39;,</span>
-<span class="sd">                   verbose=3,</span>
-<span class="sd">                   return_train_score=True)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models_and_hyperparameters</span><span class="p">[</span><span class="s1">&#39;SVM&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">hyperparameters</span> <span class="o">=</span> <span class="n">models_and_hyperparameters</span><span class="p">[</span><span class="s1">&#39;SVM&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="sd">gs.fit(X_train, y_train)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
+                   <span class="n">param_grid</span> <span class="o">=</span> <span class="n">hyperparameters</span><span class="p">,</span>
+                   <span class="n">cv</span><span class="o">=</span><span class="n">k_fold</span><span class="p">,</span> 
+                   <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span>
+                   <span class="n">verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                   <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="sd">print(&quot;----Training Ended----&quot;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Training Ended----&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12033,13 +12819,409 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[47]:</div>
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Training----
+Fitting 4 folds for each of 8 candidates, totalling 32 fits
+[CV] C=1, class_weight=balanced, gamma=0.001, kernel=rbf .............
+[CV]  C=1, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.5684310850439882, total= 1.2min
+[CV] C=1, class_weight=balanced, gamma=0.001, kernel=rbf .............
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  2.2min remaining:    0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  C=1, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6141055718475072, total= 1.2min
+[CV] C=1, class_weight=balanced, gamma=0.001, kernel=rbf .............
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  4.3min remaining:    0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  C=1, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.5433640044166359, total= 1.2min
+[CV] C=1, class_weight=balanced, gamma=0.001, kernel=rbf .............
+[CV]  C=1, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.601648877438351, total= 1.3min
+[CV] C=1, class_weight=balanced, gamma=0.0001, kernel=rbf ............
+[CV]  C=1, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5681378299120234, total= 1.2min
+[CV] C=1, class_weight=balanced, gamma=0.0001, kernel=rbf ............
+[CV]  C=1, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6141202346041056, total= 1.2min
+[CV] C=1, class_weight=balanced, gamma=0.0001, kernel=rbf ............
+[CV]  C=1, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5433051159366948, total= 1.3min
+[CV] C=1, class_weight=balanced, gamma=0.0001, kernel=rbf ............
+[CV]  C=1, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.601324990798675, total= 1.3min
+[CV] C=10, class_weight=balanced, gamma=0.001, kernel=rbf ............
+[CV]  C=10, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.5684310850439882, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.001, kernel=rbf ............
+[CV]  C=10, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6141055718475072, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.001, kernel=rbf ............
+[CV]  C=10, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.5433640044166359, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.001, kernel=rbf ............
+[CV]  C=10, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.601648877438351, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.0001, kernel=rbf ...........
+[CV]  C=10, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5681378299120234, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.0001, kernel=rbf ...........
+[CV]  C=10, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6141202346041056, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.0001, kernel=rbf ...........
+[CV]  C=10, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5433051159366948, total= 1.2min
+[CV] C=10, class_weight=balanced, gamma=0.0001, kernel=rbf ...........
+[CV]  C=10, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.601324990798675, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.001, kernel=rbf ...........
+[CV]  C=100, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6149853372434018, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.001, kernel=rbf ...........
+[CV]  C=100, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6422140762463344, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.001, kernel=rbf ...........
+[CV]  C=100, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6099521531100478, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.001, kernel=rbf ...........
+[CV]  C=100, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6326978284873022, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.0001, kernel=rbf ..........
+[CV]  C=100, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5681378299120234, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.0001, kernel=rbf ..........
+[CV]  C=100, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6141202346041056, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.0001, kernel=rbf ..........
+[CV]  C=100, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.5433051159366948, total= 1.2min
+[CV] C=100, class_weight=balanced, gamma=0.0001, kernel=rbf ..........
+[CV]  C=100, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.601324990798675, total= 1.2min
+[CV] C=1000, class_weight=balanced, gamma=0.001, kernel=rbf ..........
+[CV]  C=1000, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.699076246334311, total= 1.1min
+[CV] C=1000, class_weight=balanced, gamma=0.001, kernel=rbf ..........
+[CV]  C=1000, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.7021994134897361, total= 1.1min
+[CV] C=1000, class_weight=balanced, gamma=0.001, kernel=rbf ..........
+[CV]  C=1000, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6690025763709975, total= 1.1min
+[CV] C=1000, class_weight=balanced, gamma=0.001, kernel=rbf ..........
+[CV]  C=1000, class_weight=balanced, gamma=0.001, kernel=rbf, score=0.6995509753404491, total= 1.1min
+[CV] C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf .........
+[CV]  C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.614633431085044, total= 1.2min
+[CV] C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf .........
+[CV]  C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6420821114369502, total= 1.2min
+[CV] C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf .........
+[CV]  C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6097902097902098, total= 1.2min
+[CV] C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf .........
+[CV]  C=1000, class_weight=balanced, gamma=0.0001, kernel=rbf, score=0.6324475524475525, total= 1.2min
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed: 66.9min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Training Ended----
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;\nprint(&#34;----Training----&#34;)\n\nk_fold = StratifiedKFold(n_splits=4, shuffle=True, random_state=31)\n\nmodel = models_and_hyperparameters[\&#39;SVM\&#39;][0]\nhyperparameters = models_and_hyperparameters[\&#39;SVM\&#39;][1]\n\ngs = GridSearchCV(model, \n                   param_grid = hyperparameters,\n                   cv=k_fold, \n                   scoring=\&#39;accuracy\&#39;,\n                   verbose=3,\n                   return_train_score=True)\n\ngs.fit(X_train, y_train)\n\nprint(&#34;----Training Ended----&#34;)\n&#39;</pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>mean_score_time</th>
+      <th>mean_test_score</th>
+      <th>mean_train_score</th>
+      <th>param_C</th>
+      <th>param_class_weight</th>
+      <th>param_gamma</th>
+      <th>param_kernel</th>
+      <th>params</th>
+      <th>rank_test_score</th>
+      <th>...</th>
+      <th>split1_test_score</th>
+      <th>split1_train_score</th>
+      <th>split2_test_score</th>
+      <th>split2_train_score</th>
+      <th>split3_test_score</th>
+      <th>split3_train_score</th>
+      <th>std_fit_time</th>
+      <th>std_score_time</th>
+      <th>std_test_score</th>
+      <th>std_train_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>55.831800</td>
+      <td>18.500885</td>
+      <td>0.581896</td>
+      <td>0.634364</td>
+      <td>1</td>
+      <td>balanced</td>
+      <td>0.001</td>
+      <td>rbf</td>
+      <td>{'C': 1, 'class_weight': 'balanced', 'gamma': ...</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0.614106</td>
+      <td>0.637373</td>
+      <td>0.543364</td>
+      <td>0.635972</td>
+      <td>0.601649</td>
+      <td>0.629794</td>
+      <td>0.807686</td>
+      <td>0.296982</td>
+      <td>0.027807</td>
+      <td>0.002852</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>56.768690</td>
+      <td>18.975788</td>
+      <td>0.581731</td>
+      <td>0.634216</td>
+      <td>1</td>
+      <td>balanced</td>
+      <td>0.0001</td>
+      <td>rbf</td>
+      <td>{'C': 1, 'class_weight': 'balanced', 'gamma': ...</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0.614120</td>
+      <td>0.637272</td>
+      <td>0.543305</td>
+      <td>0.635755</td>
+      <td>0.601325</td>
+      <td>0.629650</td>
+      <td>0.958382</td>
+      <td>0.515612</td>
+      <td>0.027811</td>
+      <td>0.002853</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>55.044163</td>
+      <td>18.266336</td>
+      <td>0.581896</td>
+      <td>0.634364</td>
+      <td>10</td>
+      <td>balanced</td>
+      <td>0.001</td>
+      <td>rbf</td>
+      <td>{'C': 10, 'class_weight': 'balanced', 'gamma':...</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0.614106</td>
+      <td>0.637373</td>
+      <td>0.543364</td>
+      <td>0.635972</td>
+      <td>0.601649</td>
+      <td>0.629794</td>
+      <td>0.492905</td>
+      <td>0.046947</td>
+      <td>0.027807</td>
+      <td>0.002852</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55.195572</td>
+      <td>18.371802</td>
+      <td>0.581731</td>
+      <td>0.634216</td>
+      <td>10</td>
+      <td>balanced</td>
+      <td>0.0001</td>
+      <td>rbf</td>
+      <td>{'C': 10, 'class_weight': 'balanced', 'gamma':...</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0.614120</td>
+      <td>0.637272</td>
+      <td>0.543305</td>
+      <td>0.635755</td>
+      <td>0.601325</td>
+      <td>0.629650</td>
+      <td>0.369913</td>
+      <td>0.256913</td>
+      <td>0.027811</td>
+      <td>0.002853</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>53.262908</td>
+      <td>17.545612</td>
+      <td>0.624966</td>
+      <td>0.679156</td>
+      <td>100</td>
+      <td>balanced</td>
+      <td>0.001</td>
+      <td>rbf</td>
+      <td>{'C': 100, 'class_weight': 'balanced', 'gamma'...</td>
+      <td>2</td>
+      <td>...</td>
+      <td>0.642214</td>
+      <td>0.675539</td>
+      <td>0.609952</td>
+      <td>0.693030</td>
+      <td>0.632698</td>
+      <td>0.671073</td>
+      <td>0.129788</td>
+      <td>0.078148</td>
+      <td>0.013062</td>
+      <td>0.008301</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>54.672679</td>
+      <td>18.174279</td>
+      <td>0.581731</td>
+      <td>0.634216</td>
+      <td>100</td>
+      <td>balanced</td>
+      <td>0.0001</td>
+      <td>rbf</td>
+      <td>{'C': 100, 'class_weight': 'balanced', 'gamma'...</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0.614120</td>
+      <td>0.637272</td>
+      <td>0.543305</td>
+      <td>0.635755</td>
+      <td>0.601325</td>
+      <td>0.629650</td>
+      <td>0.027076</td>
+      <td>0.017069</td>
+      <td>0.027811</td>
+      <td>0.002853</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>48.423498</td>
+      <td>15.470352</td>
+      <td>0.692465</td>
+      <td>0.784700</td>
+      <td>1000</td>
+      <td>balanced</td>
+      <td>0.001</td>
+      <td>rbf</td>
+      <td>{'C': 1000, 'class_weight': 'balanced', 'gamma...</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0.702199</td>
+      <td>0.781575</td>
+      <td>0.669003</td>
+      <td>0.793352</td>
+      <td>0.699551</td>
+      <td>0.781177</td>
+      <td>0.077503</td>
+      <td>0.062799</td>
+      <td>0.013590</td>
+      <td>0.005026</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>53.206612</td>
+      <td>17.495161</td>
+      <td>0.624742</td>
+      <td>0.678943</td>
+      <td>1000</td>
+      <td>balanced</td>
+      <td>0.0001</td>
+      <td>rbf</td>
+      <td>{'C': 1000, 'class_weight': 'balanced', 'gamma...</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0.642082</td>
+      <td>0.675277</td>
+      <td>0.609790</td>
+      <td>0.692805</td>
+      <td>0.632448</td>
+      <td>0.670822</td>
+      <td>0.188395</td>
+      <td>0.047116</td>
+      <td>0.013095</td>
+      <td>0.008304</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 22 columns</p>
+</div>
 </div>
 
 </div>
@@ -12050,10 +13232,171 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># RANDOM FOREST</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creation of the pickle which is goig to store the model.</span>
+
+<span class="n">pickle_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SVM_roc_auc_DAISY_2.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="c1">#Modify with the name of the dataset you&#39;re saving</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">,</span> <span class="n">pickle_out</span><span class="p">)</span>
+<span class="n">pickle_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Pickle created----&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Pickle created----
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Predict">Predict<a class="anchor-link" href="#Predict">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparameters: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_params_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best roc_auc score: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Best hyperparameters: {&#39;C&#39;: 1000, &#39;class_weight&#39;: &#39;balanced&#39;, &#39;gamma&#39;: 0.001, &#39;kernel&#39;: &#39;rbf&#39;}
+Best roc_auc score: 0.692465
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification report for - </span><span class="se">\n</span><span class="si">{}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Classification report for - 
+GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
+       error_score=&#39;raise&#39;,
+       estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;auto&#39;, kernel=&#39;rbf&#39;,
+  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  tol=0.001, verbose=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid={&#39;C&#39;: [1, 10, 100, 1000], &#39;gamma&#39;: [0.001, 0.0001], &#39;kernel&#39;: [&#39;rbf&#39;], &#39;class_weight&#39;: [&#39;balanced&#39;]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=&#39;roc_auc&#39;, verbose=3):
+             precision    recall  f1-score   support
+
+         -1       0.60      0.59      0.59       480
+          1       0.55      0.57      0.56       432
+
+avg / total       0.58      0.58      0.58       912
+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>//
+//
+//
+//
+//</p>
+<h1 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#RANDOM FOREST</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Training----&quot;</span><span class="p">)</span>
 
@@ -12065,7 +13408,7 @@ div#notebook {
 <span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
                    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">hyperparameters</span><span class="p">,</span>
                    <span class="n">cv</span><span class="o">=</span><span class="n">k_fold</span><span class="p">,</span> 
-                   <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span>
+                   <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span>
                    <span class="n">verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                    <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -12091,7 +13434,7 @@ div#notebook {
 <pre>----Training----
 Fitting 4 folds for each of 54 candidates, totalling 216 fits
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.6707070707070707, total=   4.9s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.9050586510263929, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
 </pre>
 </div>
@@ -12103,7 +13446,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    5.2s remaining:    0.0s
+<pre>[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    4.3s remaining:    0.0s
 </pre>
 </div>
 </div>
@@ -12114,7 +13457,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.6989898989898989, total=   4.8s
+<pre>[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.9062316715542521, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
 </pre>
 </div>
@@ -12126,7 +13469,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:   10.2s remaining:    0.0s
+<pre>[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    8.6s remaining:    0.0s
 </pre>
 </div>
 </div>
@@ -12137,433 +13480,433 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.692929292929293, total=   4.7s
+<pre>[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.8953698932646301, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.6747474747474748, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.8785645933014354, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.705050505050505, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.913357771260997, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.705050505050505, total=   8.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9292595307917888, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7232323232323232, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9070813397129186, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7212121212121212, total=   8.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.8991682002208318, total=   8.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7070707070707071, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9199706744868035, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7272727272727273, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9211217008797654, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7333333333333333, total=  16.9s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9122561648877439, total=  16.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7111111111111111, total=  16.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9015237394184763, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.6727272727272727, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9014882697947214, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.6808080808080809, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9144354838709678, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.6828282828282828, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9007287449392711, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.6666666666666666, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.890842841369157, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.6767676767676768, total=   8.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9160850439882698, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.692929292929293, total=   8.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9240615835777126, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.705050505050505, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9080456385719544, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.7111111111111111, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9038498343761502, total=   8.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.696969696969697, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9155718475073313, total=  16.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.696969696969697, total=  16.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9260850439882699, total=  16.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.7272727272727273, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9123297754876702, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.6909090909090909, total=  16.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9057048214942952, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.6707070707070707, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.9064222873900293, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.6989898989898989, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.8999853372434017, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.6828282828282828, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.8985793154214208, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.6686868686868687, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.8824585940375413, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.696969696969697, total=   8.3s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9095747800586509, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.694949494949495, total=   8.2s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9132111436950147, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.7272727272727273, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9017151269782848, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.7272727272727273, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.8896282664703719, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.694949494949495, total=  16.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9129032258064516, total=  15.9s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7252525252525253, total=  16.2s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9183431085043988, total=  16.0s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7333333333333333, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9137578211262422, total=  16.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7191919191919192, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.8992270887007728, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7232323232323232, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.9193035190615836, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.703030303030303, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.8970234604105571, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7090909090909091, total=   4.9s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.9019801251380198, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.6989898989898989, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.8949429517850571, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.6888888888888889, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9145454545454546, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7232323232323232, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9262316715542522, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7272727272727273, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9099595141700405, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.705050505050505, total=   9.0s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9054692675745307, total=   8.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.6989898989898989, total=  16.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9221334310850441, total=  16.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7111111111111111, total=  16.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9254032258064516, total=  16.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7454545454545455, total=  17.0s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9124769966875229, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7171717171717171, total=  17.0s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9026205373573793, total=  16.7s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.6747474747474748, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.9079545454545457, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.7252525252525253, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.9227419354838711, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.6868686868686869, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.8958115568641885, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.6727272727272727, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.8919838056680162, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.696969696969697, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9137829912023461, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.701010101010101, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9149706744868036, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.705050505050505, total=   8.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9065145380934855, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.7232323232323232, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.8999337504600662, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.6828282828282828, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9233431085043988, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7232323232323232, total=  16.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9225953079178886, total=  16.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7494949494949495, total=  17.0s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9157894736842106, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7171717171717171, total=  17.0s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9006698564593301, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.6686868686868687, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.9167008797653959, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.6767676767676768, total=   4.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.9068035190615835, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.701010101010101, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.8973426573426574, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.7090909090909091, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.8750975340449024, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.6808080808080809, total=   8.3s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.910542521994135, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.701010101010101, total=   8.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9172873900293255, total=   8.0s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.7171717171717171, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9101509017298491, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.701010101010101, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.8917188075082811, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.701010101010101, total=  16.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9142375366568914, total=  16.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7111111111111111, total=  16.2s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9218914956011731, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7292929292929293, total=  16.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9067648141332352, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7212121212121212, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.8970040485829959, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.6888888888888889, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9049633431085045, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.6828282828282828, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9143108504398827, total=   4.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.703030303030303, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.8877511961722488, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.6848484848484848, total=   4.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.8893117408906882, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.6828282828282828, total=   8.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9175219941348974, total=   8.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.6787878787878788, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9132478005865102, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.7151515151515152, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9102171512697829, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.6989898989898989, total=   8.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9063673168936328, total=   8.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.6787878787878788, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9213782991202346, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7090909090909091, total=  16.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9277052785923754, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7090909090909091, total=  16.9s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9139271255060729, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7131313131313132, total=  17.2s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9054324622745674, total=  16.7s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.6909090909090909, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9038563049853372, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.6828282828282828, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9097873900293256, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.701010101010101, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.8905115936694884, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.6888888888888889, total=   4.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.8936694884063304, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.692929292929293, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9275953079178886, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7090909090909091, total=   8.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9066862170087976, total=   8.0s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7070707070707071, total=   8.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9098564593301435, total=   8.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.6888888888888889, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.8904527051895473, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7313131313131314, total=  16.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9237243401759532, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7090909090909091, total=  16.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9155425219941349, total=  16.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7292929292929293, total=  16.9s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9114758925285241, total=  16.6s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.692929292929293, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.904953993375046, total=  16.5s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.6909090909090909, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.9010997067448681, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.705050505050505, total=   4.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.9010850439882698, total=   4.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.7090909090909091, total=   4.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.8896577107103422, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.703030303030303, total=   4.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.8824291497975709, total=   4.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.6666666666666666, total=   8.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9120381231671554, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.6888888888888889, total=   8.5s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9232111436950147, total=   8.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.7393939393939394, total=   8.4s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9013029076186972, total=   8.3s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.701010101010101, total=   8.7s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.889966875230033, total=   8.2s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7111111111111111, total=  16.3s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.91658357771261, total=  16.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7232323232323232, total=  16.1s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9182991202346041, total=  16.1s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7191919191919192, total=  16.8s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9028634523371366, total=  16.4s
 [CV] bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7151515151515152, total=  16.6s
+[CV]  bootstrap=True, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.902569009937431, total=  16.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.7252525252525253, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.9321554252199413, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.7414141414141414, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.932741935483871, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.7252525252525253, total=   7.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.925991902834008, total=   6.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.7191919191919192, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=50, score=0.9119543614280458, total=   6.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7232323232323232, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9309310850439882, total=  13.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7393939393939394, total=  13.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9329398826979473, total=  12.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7595959595959596, total=  14.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9279573058520427, total=  13.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.7454545454545455, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=100, score=0.9158483621641516, total=  13.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7393939393939394, total=  26.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9320307917888563, total=  26.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7393939393939394, total=  26.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9371187683284457, total=  25.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7818181818181819, total=  27.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.935576002944424, total=  26.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.7474747474747475, total=  27.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=2, n_estimators=200, score=0.9181891792418108, total=  26.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.703030303030303, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9151466275659824, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.7171717171717171, total=   6.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9190909090909092, total=   6.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.7656565656565657, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9233934486566066, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.7232323232323232, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=50, score=0.9097902097902097, total=   7.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.7191919191919192, total=  13.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9301906158357772, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.7434343434343434, total=  13.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9298826979472141, total=  12.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.7555555555555555, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.932661023187339, total=  13.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.7212121212121212, total=  13.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=100, score=0.9091203533308796, total=  13.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.7393939393939394, total=  26.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9288123167155424, total=  25.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.7373737373737373, total=  25.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9319794721407625, total=  25.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.7616161616161616, total=  27.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9312992270887008, total=  26.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.7313131313131314, total=  26.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=5, n_estimators=200, score=0.9156716967243284, total=  26.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.6989898989898989, total=   6.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.9203519061583578, total=   6.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.7313131313131314, total=   6.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.9223460410557185, total=   6.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.7575757575757576, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.9247405226352594, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.7232323232323232, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=50, score=0.9069414795730585, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.705050505050505, total=  13.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9270967741935484, total=  12.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.7555555555555555, total=  12.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9207184750733138, total=  12.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.7555555555555555, total=  13.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9273021715126978, total=  13.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.7252525252525253, total=  13.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=100, score=0.9155391976444608, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7373737373737373, total=  25.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.931700879765396, total=  25.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7434343434343434, total=  24.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9294721407624634, total=  25.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7818181818181819, total=  26.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9281413323518587, total=  26.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.7171717171717171, total=  26.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=50, min_samples_split=10, n_estimators=200, score=0.9122414427677585, total=  26.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7232323232323232, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.9199193548387096, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7252525252525253, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.9185483870967741, total=   6.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7595959595959596, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.9226941479573058, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.7131313131313132, total=   7.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=50, score=0.914884063305116, total=   6.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7292929292929293, total=  13.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9251686217008798, total=  13.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7393939393939394, total=  13.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9303005865102639, total=  12.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7515151515151515, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9304011777695987, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.7272727272727273, total=  13.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=100, score=0.9139933750460065, total=  13.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7393939393939394, total=  25.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.929391495601173, total=  26.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7494949494949495, total=  25.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9302346041055718, total=  25.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7656565656565657, total=  27.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9318071402281929, total=  26.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.7414141414141414, total=  27.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=2, n_estimators=200, score=0.9183952889216047, total=  26.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.7070707070707071, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.9191348973607038, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.7191919191919192, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.9286656891495602, total=   6.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.7717171717171717, total=   7.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.9257048214942951, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.7616161616161616, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=50, score=0.913087964666912, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.7292929292929293, total=  13.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9316788856304985, total=  13.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.7454545454545455, total=  13.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9304765395894429, total=  12.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.7434343434343434, total=  13.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.931843945528156, total=  13.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.7151515151515152, total=  13.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=100, score=0.9128965771071035, total=  13.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7292929292929293, total=  26.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.931041055718475, total=  26.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7393939393939394, total=  26.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9324193548387096, total=  25.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7515151515151515, total=  27.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9321604711078395, total=  26.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.7393939393939394, total=  27.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=5, n_estimators=200, score=0.9179683474420317, total=  26.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.7090909090909091, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.9181011730205278, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.703030303030303, total=   6.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.9199999999999999, total=   6.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.7474747474747475, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.9249024659550975, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.6989898989898989, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=50, score=0.911152005888848, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.7272727272727273, total=  13.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9270821114369503, total=  13.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.7373737373737373, total=  12.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9267595307917889, total=  12.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.7515151515151515, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9269782848730216, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.705050505050505, total=  13.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=100, score=0.9129922708870079, total=  14.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7191919191919192, total=  25.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9259677419354839, total=  26.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7414141414141414, total=  25.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9266275659824047, total=  26.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7737373737373737, total=  26.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9300846521899153, total=  27.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.7434343434343434, total=  27.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=60, min_samples_split=10, n_estimators=200, score=0.9166580787633419, total=  28.1s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.7151515151515152, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9193181818181818, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.7191919191919192, total=   6.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9255938416422288, total=   6.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.7656565656565657, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9162384983437615, total=   6.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.7272727272727273, total=   7.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=50, score=0.9060434302539565, total=   7.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.7292929292929293, total=  13.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9338636363636363, total=  13.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.7252525252525253, total=  13.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9235850439882698, total=  14.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.7636363636363637, total=  13.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9282075818917924, total=  14.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.7353535353535353, total=  14.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=100, score=0.9148619801251379, total=  14.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7434343434343434, total=  26.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9286143695014663, total=  27.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7272727272727273, total=  26.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9341568914956012, total=  26.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7757575757575758, total=  27.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9268163415531836, total=  26.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.7292929292929293, total=  27.4s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=2, n_estimators=200, score=0.9185351490614648, total=  28.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.7272727272727273, total=   7.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9231378299120234, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.7212121212121212, total=   6.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9217302052785924, total=   6.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.7232323232323232, total=   7.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9241074714758927, total=   6.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.6868686868686869, total=   7.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=50, score=0.9115495031284505, total=   6.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7232323232323232, total=  13.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9255718475073313, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7474747474747475, total=  13.2s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9291642228739003, total=  12.9s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7393939393939394, total=  13.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9311740890688259, total=  13.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.7515151515151515, total=  13.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=100, score=0.9173279352226722, total=  13.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7292929292929293, total=  26.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9281964809384166, total=  26.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7515151515151515, total=  25.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9341788856304986, total=  25.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7656565656565657, total=  27.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.935149061464851, total=  26.8s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.7474747474747475, total=  26.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=5, n_estimators=200, score=0.9158925285241075, total=  27.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.7313131313131314, total=   6.8s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.9245747800586511, total=   6.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.7090909090909091, total=   6.6s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.9185337243401759, total=   6.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.7535353535353535, total=   7.1s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.9211777695988222, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.7515151515151515, total=   6.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=50, score=0.903467059256533, total=   6.7s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.7272727272727273, total=  12.9s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9286070381231671, total=  13.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.7292929292929293, total=  13.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9297067448680352, total=  12.6s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.7515151515151515, total=  13.7s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9274935590725065, total=  13.2s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.7434343434343434, total=  13.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=100, score=0.9072506440927495, total=  13.5s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7333333333333333, total=  25.5s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9251319648093841, total=  26.0s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7191919191919192, total=  25.0s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9310703812316715, total=  25.4s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7575757575757576, total=  26.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9276849466323152, total=  26.3s
 [CV] bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200 
-[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.7292929292929293, total=  26.3s
+[CV]  bootstrap=False, class_weight=balanced, max_depth=70, min_samples_split=10, n_estimators=200, score=0.9118586676481413, total=  26.8s
 </pre>
 </div>
 </div>
@@ -12574,7 +13917,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done 216 out of 216 | elapsed: 47.2min finished
+<pre>[Parallel(n_jobs=1)]: Done 216 out of 216 | elapsed: 45.5min finished
 </pre>
 </div>
 </div>
@@ -12596,17 +13939,1410 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#DataFrame(gs.cv_results_)</span>
-
-<span class="n">pickle_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;RF_HOG_3.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="c1">#Modify with the name of the dataset you&#39;re saving</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">,</span> <span class="n">pickle_out</span><span class="p">)</span>
-<span class="n">pickle_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>mean_score_time</th>
+      <th>mean_test_score</th>
+      <th>mean_train_score</th>
+      <th>param_bootstrap</th>
+      <th>param_class_weight</th>
+      <th>param_max_depth</th>
+      <th>param_min_samples_split</th>
+      <th>param_n_estimators</th>
+      <th>params</th>
+      <th>...</th>
+      <th>split1_test_score</th>
+      <th>split1_train_score</th>
+      <th>split2_test_score</th>
+      <th>split2_train_score</th>
+      <th>split3_test_score</th>
+      <th>split3_train_score</th>
+      <th>std_fit_time</th>
+      <th>std_score_time</th>
+      <th>std_test_score</th>
+      <th>std_train_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4.198904</td>
+      <td>0.026231</td>
+      <td>0.896315</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.906232</td>
+      <td>1.000000</td>
+      <td>0.895370</td>
+      <td>1.0</td>
+      <td>0.878565</td>
+      <td>1.0</td>
+      <td>0.024908</td>
+      <td>0.000048</td>
+      <td>0.011075</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8.270871</td>
+      <td>0.034913</td>
+      <td>0.912225</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.929260</td>
+      <td>1.000000</td>
+      <td>0.907081</td>
+      <td>1.0</td>
+      <td>0.899168</td>
+      <td>1.0</td>
+      <td>0.150211</td>
+      <td>0.000097</td>
+      <td>0.011051</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16.325047</td>
+      <td>0.053191</td>
+      <td>0.913725</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.921122</td>
+      <td>1.000000</td>
+      <td>0.912256</td>
+      <td>1.0</td>
+      <td>0.901524</td>
+      <td>1.0</td>
+      <td>0.130817</td>
+      <td>0.000167</td>
+      <td>0.007821</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.166206</td>
+      <td>0.026169</td>
+      <td>0.901880</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.914435</td>
+      <td>1.000000</td>
+      <td>0.900729</td>
+      <td>1.0</td>
+      <td>0.890843</td>
+      <td>1.0</td>
+      <td>0.066610</td>
+      <td>0.000100</td>
+      <td>0.008381</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8.245427</td>
+      <td>0.034728</td>
+      <td>0.913017</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.924062</td>
+      <td>1.000000</td>
+      <td>0.908046</td>
+      <td>1.0</td>
+      <td>0.903850</td>
+      <td>1.0</td>
+      <td>0.110187</td>
+      <td>0.000046</td>
+      <td>0.007749</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>16.372784</td>
+      <td>0.052894</td>
+      <td>0.914929</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.926085</td>
+      <td>1.000000</td>
+      <td>0.912330</td>
+      <td>1.0</td>
+      <td>0.905705</td>
+      <td>1.0</td>
+      <td>0.142020</td>
+      <td>0.000179</td>
+      <td>0.007361</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4.163113</td>
+      <td>0.026148</td>
+      <td>0.896867</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.899985</td>
+      <td>1.000000</td>
+      <td>0.898579</td>
+      <td>1.0</td>
+      <td>0.882459</td>
+      <td>1.0</td>
+      <td>0.034871</td>
+      <td>0.000039</td>
+      <td>0.008824</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8.134492</td>
+      <td>0.034383</td>
+      <td>0.903540</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.913211</td>
+      <td>1.000000</td>
+      <td>0.901715</td>
+      <td>1.0</td>
+      <td>0.889628</td>
+      <td>1.0</td>
+      <td>0.066945</td>
+      <td>0.000042</td>
+      <td>0.009038</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>16.166167</td>
+      <td>0.052281</td>
+      <td>0.911062</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.918343</td>
+      <td>1.000000</td>
+      <td>0.913758</td>
+      <td>1.0</td>
+      <td>0.899227</td>
+      <td>1.0</td>
+      <td>0.236236</td>
+      <td>0.000100</td>
+      <td>0.007135</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>4.236400</td>
+      <td>0.026328</td>
+      <td>0.903317</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.897023</td>
+      <td>1.000000</td>
+      <td>0.901980</td>
+      <td>1.0</td>
+      <td>0.894943</td>
+      <td>1.0</td>
+      <td>0.025706</td>
+      <td>0.000049</td>
+      <td>0.009583</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>8.242228</td>
+      <td>0.034862</td>
+      <td>0.914058</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.926232</td>
+      <td>1.000000</td>
+      <td>0.909960</td>
+      <td>1.0</td>
+      <td>0.905469</td>
+      <td>1.0</td>
+      <td>0.085187</td>
+      <td>0.000091</td>
+      <td>0.007731</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>16.429921</td>
+      <td>0.053326</td>
+      <td>0.915666</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.925403</td>
+      <td>1.000000</td>
+      <td>0.912477</td>
+      <td>1.0</td>
+      <td>0.902621</td>
+      <td>1.0</td>
+      <td>0.201377</td>
+      <td>0.000058</td>
+      <td>0.008902</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>4.197206</td>
+      <td>0.026226</td>
+      <td>0.904633</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.922742</td>
+      <td>1.000000</td>
+      <td>0.895812</td>
+      <td>1.0</td>
+      <td>0.891984</td>
+      <td>1.0</td>
+      <td>0.075675</td>
+      <td>0.000057</td>
+      <td>0.012009</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>8.227130</td>
+      <td>0.034726</td>
+      <td>0.908806</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.914971</td>
+      <td>1.000000</td>
+      <td>0.906515</td>
+      <td>1.0</td>
+      <td>0.899934</td>
+      <td>1.0</td>
+      <td>0.042174</td>
+      <td>0.000082</td>
+      <td>0.006056</td>
+      <td>7.850462e-17</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>16.296543</td>
+      <td>0.052790</td>
+      <td>0.915606</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.922595</td>
+      <td>1.000000</td>
+      <td>0.915789</td>
+      <td>1.0</td>
+      <td>0.900670</td>
+      <td>1.0</td>
+      <td>0.186358</td>
+      <td>0.000076</td>
+      <td>0.009107</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>4.140045</td>
+      <td>0.026211</td>
+      <td>0.898998</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.906804</td>
+      <td>1.000000</td>
+      <td>0.897343</td>
+      <td>1.0</td>
+      <td>0.875098</td>
+      <td>1.0</td>
+      <td>0.053734</td>
+      <td>0.000210</td>
+      <td>0.015396</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>8.098125</td>
+      <td>0.034427</td>
+      <td>0.907431</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.917287</td>
+      <td>1.000000</td>
+      <td>0.910151</td>
+      <td>1.0</td>
+      <td>0.891719</td>
+      <td>1.0</td>
+      <td>0.088081</td>
+      <td>0.000062</td>
+      <td>0.009499</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>16.291620</td>
+      <td>0.052480</td>
+      <td>0.909982</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.921891</td>
+      <td>1.000000</td>
+      <td>0.906765</td>
+      <td>1.0</td>
+      <td>0.897004</td>
+      <td>1.0</td>
+      <td>0.189733</td>
+      <td>0.000167</td>
+      <td>0.009202</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>4.221793</td>
+      <td>0.026335</td>
+      <td>0.899094</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.914311</td>
+      <td>1.000000</td>
+      <td>0.887751</td>
+      <td>1.0</td>
+      <td>0.889312</td>
+      <td>1.0</td>
+      <td>0.040711</td>
+      <td>0.000086</td>
+      <td>0.011072</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>8.340019</td>
+      <td>0.034945</td>
+      <td>0.911842</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.913248</td>
+      <td>1.000000</td>
+      <td>0.910217</td>
+      <td>1.0</td>
+      <td>0.906367</td>
+      <td>1.0</td>
+      <td>0.063138</td>
+      <td>0.000074</td>
+      <td>0.004088</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>16.396520</td>
+      <td>0.053763</td>
+      <td>0.917118</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.927705</td>
+      <td>1.000000</td>
+      <td>0.913927</td>
+      <td>1.0</td>
+      <td>0.905432</td>
+      <td>1.0</td>
+      <td>0.175357</td>
+      <td>0.000255</td>
+      <td>0.008321</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>4.156645</td>
+      <td>0.026334</td>
+      <td>0.899463</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.909787</td>
+      <td>1.000000</td>
+      <td>0.890512</td>
+      <td>1.0</td>
+      <td>0.893669</td>
+      <td>1.0</td>
+      <td>0.019311</td>
+      <td>0.000100</td>
+      <td>0.007739</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>8.218346</td>
+      <td>0.034943</td>
+      <td>0.908656</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.906686</td>
+      <td>1.000000</td>
+      <td>0.909856</td>
+      <td>1.0</td>
+      <td>0.890453</td>
+      <td>1.0</td>
+      <td>0.132502</td>
+      <td>0.000080</td>
+      <td>0.013185</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>16.383828</td>
+      <td>0.053367</td>
+      <td>0.913930</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.915543</td>
+      <td>1.000000</td>
+      <td>0.911476</td>
+      <td>1.0</td>
+      <td>0.904954</td>
+      <td>1.0</td>
+      <td>0.137801</td>
+      <td>0.000113</td>
+      <td>0.006803</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>4.153390</td>
+      <td>0.026257</td>
+      <td>0.893575</td>
+      <td>0.999998</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.901085</td>
+      <td>0.999993</td>
+      <td>0.889658</td>
+      <td>1.0</td>
+      <td>0.882429</td>
+      <td>1.0</td>
+      <td>0.035525</td>
+      <td>0.000057</td>
+      <td>0.007946</td>
+      <td>2.829455e-06</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>8.156929</td>
+      <td>0.034708</td>
+      <td>0.906640</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.923211</td>
+      <td>1.000000</td>
+      <td>0.901303</td>
+      <td>1.0</td>
+      <td>0.889967</td>
+      <td>1.0</td>
+      <td>0.086070</td>
+      <td>0.000081</td>
+      <td>0.012351</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>16.260590</td>
+      <td>0.055083</td>
+      <td>0.910086</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': True, 'class_weight': 'balanced'...</td>
+      <td>...</td>
+      <td>0.918299</td>
+      <td>1.000000</td>
+      <td>0.902863</td>
+      <td>1.0</td>
+      <td>0.902569</td>
+      <td>1.0</td>
+      <td>0.254067</td>
+      <td>0.003982</td>
+      <td>0.007388</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>6.719623</td>
+      <td>0.026966</td>
+      <td>0.925717</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.932742</td>
+      <td>1.000000</td>
+      <td>0.925992</td>
+      <td>1.0</td>
+      <td>0.911954</td>
+      <td>1.0</td>
+      <td>0.148048</td>
+      <td>0.000041</td>
+      <td>0.008370</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>13.252678</td>
+      <td>0.036267</td>
+      <td>0.926924</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.932940</td>
+      <td>1.000000</td>
+      <td>0.927957</td>
+      <td>1.0</td>
+      <td>0.915848</td>
+      <td>1.0</td>
+      <td>0.378355</td>
+      <td>0.000086</td>
+      <td>0.006632</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>26.222678</td>
+      <td>0.055839</td>
+      <td>0.930732</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.937119</td>
+      <td>1.000000</td>
+      <td>0.935576</td>
+      <td>1.0</td>
+      <td>0.918189</td>
+      <td>1.0</td>
+      <td>0.522611</td>
+      <td>0.000238</td>
+      <td>0.007469</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>6.615112</td>
+      <td>0.026782</td>
+      <td>0.916856</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.919091</td>
+      <td>1.000000</td>
+      <td>0.923393</td>
+      <td>1.0</td>
+      <td>0.909790</td>
+      <td>1.0</td>
+      <td>0.238510</td>
+      <td>0.000063</td>
+      <td>0.005012</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>13.243246</td>
+      <td>0.035877</td>
+      <td>0.925468</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.929883</td>
+      <td>1.000000</td>
+      <td>0.932661</td>
+      <td>1.0</td>
+      <td>0.909120</td>
+      <td>1.0</td>
+      <td>0.285332</td>
+      <td>0.000052</td>
+      <td>0.009494</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>25.958395</td>
+      <td>0.054828</td>
+      <td>0.926944</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.931979</td>
+      <td>1.000000</td>
+      <td>0.931299</td>
+      <td>1.0</td>
+      <td>0.915672</td>
+      <td>1.0</td>
+      <td>0.545582</td>
+      <td>0.000494</td>
+      <td>0.006610</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>6.579883</td>
+      <td>0.026308</td>
+      <td>0.918598</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.922346</td>
+      <td>1.000000</td>
+      <td>0.924741</td>
+      <td>1.0</td>
+      <td>0.906941</td>
+      <td>1.0</td>
+      <td>0.167336</td>
+      <td>0.000046</td>
+      <td>0.006903</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>12.993492</td>
+      <td>0.035151</td>
+      <td>0.922665</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.920718</td>
+      <td>1.000000</td>
+      <td>0.927302</td>
+      <td>1.0</td>
+      <td>0.915539</td>
+      <td>1.0</td>
+      <td>0.270929</td>
+      <td>0.000086</td>
+      <td>0.004890</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>25.878334</td>
+      <td>0.053808</td>
+      <td>0.925394</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>50</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.929472</td>
+      <td>1.000000</td>
+      <td>0.928141</td>
+      <td>1.0</td>
+      <td>0.912241</td>
+      <td>1.0</td>
+      <td>0.496237</td>
+      <td>0.000048</td>
+      <td>0.007695</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>6.666640</td>
+      <td>0.026499</td>
+      <td>0.919012</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.918548</td>
+      <td>1.000000</td>
+      <td>0.922694</td>
+      <td>1.0</td>
+      <td>0.914884</td>
+      <td>1.0</td>
+      <td>0.200149</td>
+      <td>0.000072</td>
+      <td>0.002811</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>13.151888</td>
+      <td>0.035505</td>
+      <td>0.924969</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.930301</td>
+      <td>1.000000</td>
+      <td>0.930401</td>
+      <td>1.0</td>
+      <td>0.913993</td>
+      <td>1.0</td>
+      <td>0.281716</td>
+      <td>0.000126</td>
+      <td>0.006677</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>26.235862</td>
+      <td>0.054817</td>
+      <td>0.927459</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.930235</td>
+      <td>1.000000</td>
+      <td>0.931807</td>
+      <td>1.0</td>
+      <td>0.918395</td>
+      <td>1.0</td>
+      <td>0.508339</td>
+      <td>0.000170</td>
+      <td>0.005301</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>6.598020</td>
+      <td>0.026426</td>
+      <td>0.921650</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.928666</td>
+      <td>1.000000</td>
+      <td>0.925705</td>
+      <td>1.0</td>
+      <td>0.913088</td>
+      <td>1.0</td>
+      <td>0.140819</td>
+      <td>0.000103</td>
+      <td>0.006026</td>
+      <td>5.551115e-17</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>13.012858</td>
+      <td>0.035497</td>
+      <td>0.926728</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.930477</td>
+      <td>1.000000</td>
+      <td>0.931844</td>
+      <td>1.0</td>
+      <td>0.912897</td>
+      <td>1.0</td>
+      <td>0.254189</td>
+      <td>0.000190</td>
+      <td>0.007998</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>26.005479</td>
+      <td>0.053867</td>
+      <td>0.928400</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.932419</td>
+      <td>1.000000</td>
+      <td>0.932160</td>
+      <td>1.0</td>
+      <td>0.917968</td>
+      <td>1.0</td>
+      <td>0.524060</td>
+      <td>0.000762</td>
+      <td>0.006041</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>6.608699</td>
+      <td>0.026245</td>
+      <td>0.918539</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.920000</td>
+      <td>1.000000</td>
+      <td>0.924902</td>
+      <td>1.0</td>
+      <td>0.911152</td>
+      <td>1.0</td>
+      <td>0.113240</td>
+      <td>0.000077</td>
+      <td>0.004932</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>13.229600</td>
+      <td>0.035576</td>
+      <td>0.923456</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.926760</td>
+      <td>1.000000</td>
+      <td>0.926978</td>
+      <td>1.0</td>
+      <td>0.912992</td>
+      <td>1.0</td>
+      <td>0.512126</td>
+      <td>0.000257</td>
+      <td>0.006039</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>27.067865</td>
+      <td>0.057266</td>
+      <td>0.924836</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>60</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.926628</td>
+      <td>1.000000</td>
+      <td>0.930085</td>
+      <td>1.0</td>
+      <td>0.916658</td>
+      <td>1.0</td>
+      <td>0.724988</td>
+      <td>0.000432</td>
+      <td>0.004971</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>6.795345</td>
+      <td>0.028281</td>
+      <td>0.916804</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.925594</td>
+      <td>1.000000</td>
+      <td>0.916238</td>
+      <td>1.0</td>
+      <td>0.906043</td>
+      <td>1.0</td>
+      <td>0.137017</td>
+      <td>0.001002</td>
+      <td>0.007065</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>14.068016</td>
+      <td>0.036511</td>
+      <td>0.925133</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.923585</td>
+      <td>1.000000</td>
+      <td>0.928208</td>
+      <td>1.0</td>
+      <td>0.914862</td>
+      <td>1.0</td>
+      <td>0.440925</td>
+      <td>0.000300</td>
+      <td>0.006956</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>27.231124</td>
+      <td>0.059555</td>
+      <td>0.927035</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>2</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.934157</td>
+      <td>1.000000</td>
+      <td>0.926816</td>
+      <td>1.0</td>
+      <td>0.918535</td>
+      <td>1.0</td>
+      <td>0.995767</td>
+      <td>0.003466</td>
+      <td>0.005601</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>6.743792</td>
+      <td>0.027047</td>
+      <td>0.920133</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.921730</td>
+      <td>1.000000</td>
+      <td>0.924107</td>
+      <td>1.0</td>
+      <td>0.911550</td>
+      <td>1.0</td>
+      <td>0.179329</td>
+      <td>0.000130</td>
+      <td>0.005024</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>13.211703</td>
+      <td>0.036137</td>
+      <td>0.925811</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.929164</td>
+      <td>1.000000</td>
+      <td>0.931174</td>
+      <td>1.0</td>
+      <td>0.917328</td>
+      <td>1.0</td>
+      <td>0.245677</td>
+      <td>0.000068</td>
+      <td>0.005290</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>26.389754</td>
+      <td>0.056118</td>
+      <td>0.928357</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>5</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.934179</td>
+      <td>1.000000</td>
+      <td>0.935149</td>
+      <td>1.0</td>
+      <td>0.915893</td>
+      <td>1.0</td>
+      <td>0.644720</td>
+      <td>0.000121</td>
+      <td>0.007669</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>6.566455</td>
+      <td>0.026751</td>
+      <td>0.916943</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>50</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.918534</td>
+      <td>1.000000</td>
+      <td>0.921178</td>
+      <td>1.0</td>
+      <td>0.903467</td>
+      <td>1.0</td>
+      <td>0.099155</td>
+      <td>0.000022</td>
+      <td>0.008065</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>13.036775</td>
+      <td>0.035835</td>
+      <td>0.923270</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>100</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.929707</td>
+      <td>1.000000</td>
+      <td>0.927494</td>
+      <td>1.0</td>
+      <td>0.907251</td>
+      <td>1.0</td>
+      <td>0.334664</td>
+      <td>0.000061</td>
+      <td>0.009276</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>26.092228</td>
+      <td>0.055122</td>
+      <td>0.923940</td>
+      <td>1.000000</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>70</td>
+      <td>10</td>
+      <td>200</td>
+      <td>{'bootstrap': False, 'class_weight': 'balanced...</td>
+      <td>...</td>
+      <td>0.931070</td>
+      <td>1.000000</td>
+      <td>0.927685</td>
+      <td>1.0</td>
+      <td>0.911859</td>
+      <td>1.0</td>
+      <td>0.524082</td>
+      <td>0.000183</td>
+      <td>0.007283</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+<p>54 rows × 23 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creation of the pickle which is goig to store the model.</span>
+
+<span class="n">pickle_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;RF_roc_auc_DAISY_2.pickle&quot;</span><span class="p">,</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="c1">#Modify with the name of the dataset you&#39;re saving</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">,</span> <span class="n">pickle_out</span><span class="p">)</span>
+<span class="n">pickle_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----Pickle created----&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----Pickle created----
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12621,7 +15357,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -12634,11 +15370,11 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparameters: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_params_</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best accuracy score: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best roc_auc score: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12656,7 +15392,7 @@ Fitting 4 folds for each of 54 candidates, totalling 216 fits
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Best hyperparameters: {&#39;bootstrap&#39;: False, &#39;class_weight&#39;: &#39;balanced&#39;, &#39;max_depth&#39;: 50, &#39;min_samples_split&#39;: 2, &#39;n_estimators&#39;: 200}
-Best accuracy score: 0.752020
+Best roc_auc score: 0.930732
 </pre>
 </div>
 </div>
@@ -12675,7 +15411,7 @@ Best accuracy score: 0.752020
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification report for - </span><span class="se">\n</span><span class="si">{}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
@@ -12708,13 +15444,13 @@ GridSearchCV(cv=StratifiedKFold(n_splits=4, random_state=31, shuffle=True),
        fit_params=None, iid=True, n_jobs=1,
        param_grid={&#39;n_estimators&#39;: [50, 100, 200], &#39;max_depth&#39;: [50, 60, 70], &#39;min_samples_split&#39;: [2, 5, 10], &#39;bootstrap&#39;: [True, False], &#39;class_weight&#39;: [&#39;balanced&#39;]},
        pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
-       scoring=&#39;accuracy&#39;, verbose=3):
-                         precision    recall  f1-score   support
+       scoring=&#39;roc_auc&#39;, verbose=3):
+             precision    recall  f1-score   support
 
-Genuine Genuine Forgery       0.60      0.87      0.71       480
-Genuine Genuine Genuine       0.62      0.27      0.38       384
+         -1       0.60      0.65      0.63       480
+          1       0.58      0.52      0.55       432
 
-            avg / total       0.61      0.60      0.56       864
+avg / total       0.59      0.59      0.59       912
 
 
 </pre>
@@ -12727,7 +15463,7 @@ Genuine Genuine Genuine       0.62      0.27      0.38       384
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># End point</span>
@@ -12753,8 +15489,8 @@ Genuine Genuine Genuine       0.62      0.27      0.38       384
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>End time:  2019-01-15 12:05:02.996498
-Uptime : 0:48:20.025877
+<pre>End time:  2019-01-16 18:39:19.367414
+Uptime : 2:00:03.331741
 </pre>
 </div>
 </div>
